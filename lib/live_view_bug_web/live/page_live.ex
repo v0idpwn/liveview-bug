@@ -1,5 +1,4 @@
 defmodule LiveViewBugWeb.PageLive do
-
   use LiveViewBugWeb, :live_view
 
   alias LiveViewBugWeb.PageComponent
