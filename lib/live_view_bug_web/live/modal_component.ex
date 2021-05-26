@@ -8,7 +8,7 @@ defmodule LiveViewBugWeb.ModalComponent do
       <div class="phx-modal-content">
         <div class="card">
           <div class="card-header">
-            <%= @opts[:title] %>
+            <%= @title %>
             <div class="card-header-actions">
               <%= if is_function(@return_to) do %>
                 <button class="button" phx-click="close" phx-target="<%= @myself %>">close</button>
@@ -20,7 +20,10 @@ defmodule LiveViewBugWeb.ModalComponent do
             </div>
           </div>
           <div class="card-body">
-            <%= live_component @socket, @component, @opts %>
+          <div>
+            <p> Vsn: <%= @vsn %></p>
+            <p> Query: <%= @query %></p>
+          </div>
           </div>
         </div>
       </div>

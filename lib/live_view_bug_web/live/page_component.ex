@@ -2,7 +2,6 @@ defmodule LiveViewBugWeb.PageComponent do
   use LiveViewBugWeb, :live_component
 
   alias LiveViewBugWeb.ModalComponent
-  alias LiveViewBugWeb.InnerComponent
 
   @impl true
   def render(assigns) do
@@ -10,15 +9,14 @@ defmodule LiveViewBugWeb.PageComponent do
     <%= if @modal_content do %>
       <%= live_component @socket, ModalComponent, 
         id: :my_modal,
-        component: InnerComponent,
-        return_to: (fn -> close_modal(__MODULE__, @id) end),
-        opts: [id: :modal_inner_component, data: @modal_content]
+        title: "My modal",
+        vsn: @modal_content[:vsn],
+        query: @modal_content[:query],
+        return_to: (fn -> close_modal(__MODULE__, @id) end)
       %>
     <% end %>
     <section class="phx-hero">
-      <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-      <p>Peace of mind from prototype to production</p>
-
+      <p>Package search</p>
       <form phx-change="suggest" phx-submit="search" phx-target="<%= @myself %>">
         <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
         <datalist id="results">
@@ -34,7 +32,7 @@ defmodule LiveViewBugWeb.PageComponent do
 
   @impl true
   def update(_params, socket) do
-    IO.inspect(socket, label: :update)
+    IO.inspect(socket, label: :before_update)
 
     {:ok, assign(socket, query: "", results: %{}, modal_content: nil, id: :page_component)}
   end
