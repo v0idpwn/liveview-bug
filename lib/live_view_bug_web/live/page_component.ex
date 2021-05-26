@@ -6,6 +6,7 @@ defmodule LiveViewBugWeb.PageComponent do
   @impl true
   def render(assigns) do
     ~L"""
+    <div>
     <%= if @modal_content do %>
       <%= live_component @socket, ModalComponent, 
         id: :my_modal,
@@ -27,6 +28,7 @@ defmodule LiveViewBugWeb.PageComponent do
         <button type="submit" phx-disable-with="Searching...">Spawn modal</button>
       </form>
     </section>
+    </div>
     """
   end
 
